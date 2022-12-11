@@ -9,7 +9,29 @@ class TabbarWidget extends StatefulWidget {
   State<TabbarWidget> createState() => _TabbarWidgetState();
 }
 
-class _TabbarWidgetState extends State<TabbarWidget> {
+class _TabbarWidgetState extends State<TabbarWidget> with TickerProviderStateMixin{
+
+  TabController? myController;
+  List myTitle = ['Login','Register'];
+  int myIndex = 0;
+
+  @override
+  void initState() {
+      myController = TabController( initialIndex: 0,length: 2, vsync: this);
+      myController!.addListener(() { 
+        setState(() {
+              myIndex = myController!.index;
+        });
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    myController!.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,9 +39,10 @@ class _TabbarWidgetState extends State<TabbarWidget> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Flutter Academy"),
-            bottom:  const TabBar(
-              tabs: [
+            title: Text(myTitle[myIndex]),
+            bottom:  TabBar(
+              controller: myController,
+              tabs: const [
                 Tab(
                   icon: Icon(Icons.login),
                   text: 'Login'),
@@ -29,8 +52,9 @@ class _TabbarWidgetState extends State<TabbarWidget> {
               ],
             ),
           ),
-          body: const TabBarView(
-            children: [
+          body: TabBarView(
+            controller: myController,
+            children: const [
               Login(),
               RegistrationScreen(),
             ],
