@@ -3,6 +3,7 @@ import 'package:flutter_academy_ar/basic_widgets.dart';
 import 'package:flutter_academy_ar/bottom_navigation_bar_widget.dart';
 import 'package:flutter_academy_ar/list_view_widget.dart';
 import 'package:flutter_academy_ar/toast_widget_.dart';
+import 'todolist_app/todolist_app.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const BasicWidgetsScreen()));
+                            builder: (context) => const TodoListApp()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(20),
